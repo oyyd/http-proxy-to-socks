@@ -103,16 +103,16 @@ function ProxyServer(options) {
 
   this.proxyList = [];
 
-  if (options.proxy) {
+  if (options.socks) {
     // stand alone proxy loging
-    this.loadProxy(options.proxy);
-  } else if (options.proxyList) {
+    this.loadProxy(options.socks);
+  } else if (options.socksList) {
     // proxy list loading
-    this.loadProxyFile(options.proxyList);
+    this.loadProxyFile(options.socksList);
     if (options.proxyListReloadTimeout) {
       setInterval(
         () => {
-          this.loadProxyFile(options.proxyList);
+          this.loadProxyFile(options.socksList);
         },
         options.proxyListReloadTimeout * 1000
       );

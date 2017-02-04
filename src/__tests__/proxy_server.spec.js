@@ -229,7 +229,7 @@ describe('proxy_server', () => {
   describe('createServer', () => {
     it('should push this.proxyList', () => {
       const options = {
-        proxy: '127.0.0.1:1080',
+        socks: '127.0.0.1:1080',
       };
 
       createServer(options);
