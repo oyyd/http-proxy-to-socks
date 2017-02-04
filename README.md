@@ -1,6 +1,6 @@
 # http-proxy-to-socks
 
-![build](https://api.travis-ci.org/oyyd/http-proxy-to-socks.svg?branch=master)
+[![build](https://api.travis-ci.org/oyyd/http-proxy-to-socks.svg?branch=master)](https://travis-ci.org/oyyd/http-proxy-to-socks)
 
 hpts(http-proxy-to-socks)是node上，将socks proxy转换成http proxy的工具。
 

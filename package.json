@@ -2,6 +2,10 @@
   "name": "http-proxy-to-socks",
   "version": "1.0.0",
   "description": "hpts(http-proxy-to-socks) is a nodejs client to convert socks proxy into http proxy",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/oyyd/http-proxy-to-socks"
+  },
   "scripts": {
     "build": "babel src --out-dir lib",
     "dev": "jest --watch",
