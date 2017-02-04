@@ -1,0 +1,42 @@
+{
+  "name": "http-proxy-to-socks",
+  "version": "1.0.0",
+  "description": "hpts(http-proxy-to-socks) is a nodejs client to convert socks proxy into http proxy",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "dev": "jest --watch",
+    "test": "eslint src && jest"
+  },
+  "keywords": [
+    "socks",
+    "http proxy",
+    "converting proxy"
+  ],
+  "bin": {
+    "hpts": "./bin/hpts.js"
+  },
+  "author": "oyyd <oyydoibh@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "socks": "^1.1.10",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "babel-jest": "^18.0.0",
+    "babel-plugin-transform-async-to-generator": "^6.22.0",
+    "babel-polyfill": "^6.22.0",
+    "babel-preset-es2015": "^6.18.0",
+    "eslint": "^3.13.1",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-config-airbnb-base": "^11.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "jest": "^18.1.0"
+  },
+  "jest": {
+    "testPathDirs": [
+      "<rootDir>/src"
+    ],
+    "testRegex": "(\\.|/)(test|spec)\\.js$"
+  }
+}
