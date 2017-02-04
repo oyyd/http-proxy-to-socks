@@ -34,7 +34,10 @@ function getOptionsArgs(args) {
   const options = {};
 
   optionNames.forEach((name) => {
-    if ({}.hasOwnProperty.apply(args, [name])) {
+    if (Object.hasOwnProperty.apply(args, [name])) {
+      if (typeof args[name] !== 'string') {
+        throw new Error(`string "${name}" expected`);
+      }
       options[name] = args[name];
     }
   });
