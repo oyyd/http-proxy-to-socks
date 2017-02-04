@@ -13,7 +13,7 @@ npm，atom/apm，docker images以及iOS的代理设置等我们常用的工具�
 ## 安装
 
 ```
-npm install -g hpts
+npm install -g http-proxy-to-socks
 ```
 
 需要node版本为`4`及以上。
