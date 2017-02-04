@@ -6,7 +6,7 @@
 
 hpts(http-proxy-to-socks) is a nodejs tool to convert SOCKS proxy into http proxy.
 
-Many clients support setting up http proxy to speed up network requests and for sometimes only SOCKS proxy is available to you. SOCKS proxy support TCP so that it's possible to convert those requests from http proxy into SOCKS protocol. In this way, you can still keep goodness provide by your SOCKS proxy(e.g. encryption).
+Many clients support setting up http proxy to speed up network requests and for sometimes only SOCKS proxy is available to you. SOCKS proxy supports TCP so that it's possible to convert those requests from http proxy into SOCKS protocol. In this way, you can still keep the goodness provided by your SOCKS proxy(e.g. encryption).
 
 ## Setup
 
