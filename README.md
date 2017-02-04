@@ -1,5 +1,7 @@
 # http-proxy-to-socks
 
+![build](https://api.travis-ci.org/oyyd/http-proxy-to-socks.svg?branch=master)
+
 hpts(http-proxy-to-socks)是node上，将socks proxy转换成http proxy的工具。
 
 npm，atom/apm，docker images以及iOS的代理设置等我们常用的工具在发送请求时往往支持http proxy代理来加快网络请求或解决网络问题，但是常见的一些代理工具（如：ss）支持的是socks协议。而socks协议本身是支持tcp请求代理的，所以我们可以将对http(s) proxy发送的请求转换成对socks发送的请求。并且这样开启的http proxy仍然能够利用socks协议代理工具上所具有的一些特性（如：加密请求等）。
