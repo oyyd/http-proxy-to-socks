@@ -52,21 +52,25 @@ describe('proxy_server', () => {
     }));
 
     request = {
+      on: jest.fn(),
       pipe: jest.fn(),
       url: requestURL,
     };
 
     socksRequest = {
+      on: jest.fn(),
       pipe: jest.fn(),
       url: requestURL.slice('https://'.length),
     };
 
     response = {
+      on: jest.fn(),
       writeHead: jest.fn(),
       end: jest.fn(),
     };
 
     socketRequest = {
+      on: jest.fn(),
       write: jest.fn(),
       pipe: jest.fn(),
     };
