@@ -51,6 +51,11 @@ function requestListener(getProxyInfo, request, response) {
 
   const proxyRequest = http.request(options);
 
+  request.on('error', (err) => {
+    logger.error(`${err.message}`);
+    proxyRequest.destroy(err);
+  });
+
   proxyRequest.on('error', (error) => {
     logger.error(`${error.message} on proxy ${proxy.ipaddress}:${proxy.port}`);
     response.writeHead(500);
@@ -79,13 +84,29 @@ function connectListener(getProxyInfo, request, socketRequest, head) {
     command: 'connect',
   };
 
-  Socks.createConnection(options, (error, socket) => {
+  let socket;
+
+  socketRequest.on('error', (err) => {
+    logger.error(`${err.message}`);
+    if (socket) {
+      socket.destroy(err);
+    }
+  });
+
+  Socks.createConnection(options, (error, _socket) => {
+    socket = _socket;
+
     if (error) {
       // error in SocksSocket creation
       logger.error(`${error.message} connection creating on ${proxy.ipaddress}:${proxy.port}`);
       socketRequest.write(`HTTP/${request.httpVersion} 500 Connection error\r\n\r\n`);
       return;
     }
+
+    socket.on('error', (err) => {
+      logger.error(`${err.message}`);
+      socketRequest.destroy(err);
+    });
 
     // tunneling to the host
     socket.pipe(socketRequest);

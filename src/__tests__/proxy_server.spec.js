@@ -72,6 +72,7 @@ describe('proxy_server', () => {
     };
 
     socket = {
+      on: jest.fn(),
       pipe: jest.fn(),
       write: jest.fn(),
       resume: jest.fn(),
