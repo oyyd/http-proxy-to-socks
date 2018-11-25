@@ -1,3 +1,4 @@
+const { logger, changeLevel } = require('./logger');
 const { createServer: createProxyServer } = require('./proxy_server');
 
 const DEFAULT_OPTIONS = {
@@ -8,6 +9,11 @@ const DEFAULT_OPTIONS = {
 
 function createServer(opts) {
   const options = Object.assign({}, DEFAULT_OPTIONS, opts);
+
+  if (typeof options.level === 'string') {
+    changeLevel(logger, options.level);
+  }
+
   const { port, socks } = options;
 
   // eslint-disable-next-line

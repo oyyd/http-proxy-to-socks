@@ -3,7 +3,6 @@ const { resolve } = require('path');
 const cli = require('commander');
 const { version } = require('../package.json');
 const { createServer } = require('./server');
-const { logger, changeLevel } = require('./logger');
 
 const optionNames = [
   'socks',
@@ -62,10 +61,6 @@ function main() {
   }
 
   Object.assign(options, fileConfig);
-
-  if (typeof options.level === 'string') {
-    changeLevel(logger, options.level);
-  }
 
   createServer(options);
 }
