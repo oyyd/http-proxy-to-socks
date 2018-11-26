@@ -9,6 +9,7 @@ const optionNames = [
   'port',
   'level',
   'config',
+  'host',
 ];
 
 function getFileConfig(filePath) {
@@ -48,6 +49,7 @@ function main() {
   cli.version(version)
     .option('-s, --socks [socks]', 'specify your socks proxy host, default: 127.0.0.1:1080')
     .option('-p, --port [port]', 'specify the listening port of http proxy server, default: 8080')
+    .option('-l, --host [host]', 'specify the listening host of http proxy server, default: 127.0.0.1')
     .option('-c, --config [config]', 'read configs from file in json format')
     .option('--level [level]', 'log level, vals: info, error')
     .parse(process.argv);

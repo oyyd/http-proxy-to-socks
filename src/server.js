@@ -2,6 +2,7 @@ const { logger, changeLevel } = require('./logger');
 const { createServer: createProxyServer } = require('./proxy_server');
 
 const DEFAULT_OPTIONS = {
+  host: '127.0.0.1',
   socks: '127.0.0.1:1080',
   proxyListReloadTimeout: 60,
   port: 8080,
@@ -14,12 +15,12 @@ function createServer(opts) {
     changeLevel(logger, options.level);
   }
 
-  const { port, socks } = options;
+  const { port, socks, host } = options;
 
   // eslint-disable-next-line
-  console.log(`SOCKS: ${socks}\nhttp-proxy listening: http://127.0.0.1:${port}`);
+  console.log(`SOCKS: ${socks}\nhttp-proxy listening: ${host}:${port}`);
 
-  return createProxyServer(options).listen(port);
+  return createProxyServer(options).listen(port, host);
 }
 
 module.exports = {

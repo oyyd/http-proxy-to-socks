@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.0
+- src: Support setting local address of the http-service.
+- src: Format timestamp of logs.
+
 ## 1.0.4
 - src: Support setting the `--level` option in `createServer()`.
 
