@@ -27,14 +27,16 @@ This will start a process listening on `8080` as a http proxy. It will convert h
 Other options:
 
 ```
-Options:
+Usage: hpts [options]
 
-  -h, --help             output usage information
+Options:
   -V, --version          output the version number
   -s, --socks [socks]    specify your socks proxy host, default: 127.0.0.1:1080
   -p, --port [port]      specify the listening port of http proxy server, default: 8080
+  -l, --host [host]      specify the listening host of http proxy server, default: 127.0.0.1
   -c, --config [config]  read configs from file in json format
   --level [level]        log level, vals: info, error
+  -h, --help             output usage information
 ```
 
 You can specify a `json` config file with `-c`:
