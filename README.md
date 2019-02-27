@@ -27,8 +27,6 @@ This will start a process listening on `8080` as a http proxy. It will convert h
 Other options:
 
 ```
-Usage: hpts [options]
-
 Options:
   -V, --version          output the version number
   -s, --socks [socks]    specify your socks proxy host, default: 127.0.0.1:1080
