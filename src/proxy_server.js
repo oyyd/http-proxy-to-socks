@@ -37,7 +37,7 @@ function requestListener(getProxyInfo, request, response) {
 
   const socksAgent = new Socks.Agent({
     proxy,
-    target: { host: ph.host, port: ph.port },
+    target: { host: ph.hostname, port: ph.port },
   });
 
   const options = {
