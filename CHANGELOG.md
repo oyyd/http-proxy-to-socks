@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.1.1
+- src: Use parsed url hostname instead of host which may contain also port
+
 ## 1.1.0
 - src: Support setting local address of the http-service.
 - src: Format timestamp of logs.
