@@ -29,16 +29,12 @@ function parseProxyLine(line) {
   return getProxyObject.apply(this, proxyInfo);
 }
 
-function requestListener(getProxyInfo, request, response) {
+function requestListener(hostnamesToSkip, getProxyInfo, request, response) {
   logger.info(`request: ${request.url}`);
-
   const proxy = getProxyInfo();
   const ph = url.parse(request.url);
-
-  const socksAgent = new Socks.Agent({
-    proxy,
-    target: { host: ph.hostname, port: ph.port },
-  });
+  const shouldProxy = !hostnamesToSkip
+                        || (hostnamesToSkip.indexOf(ph.hostname.toLowerCase()) === -1);
 
   const options = {
     port: ph.port,
@@ -46,8 +42,15 @@ function requestListener(getProxyInfo, request, response) {
     method: request.method,
     path: ph.path,
     headers: request.headers,
-    agent: socksAgent,
   };
+  if (shouldProxy) {
+    options.agent = new Socks.Agent({
+      proxy,
+      target: { host: ph.hostname, port: ph.port },
+    });
+  } else {
+    logger.info('skipping this request because it is local');
+  }
 
   const proxyRequest = http.request(options);
 
@@ -120,8 +123,8 @@ function connectListener(getProxyInfo, request, socketRequest, head) {
 
 function ProxyServer(options) {
   // TODO: start point
-  http.Server.call(this, () => {});
-
+  http.Server.call(this, () => { });
+  this.hostnamesToSkip = (options.skip || '').split('|');
   this.proxyList = [];
 
   if (options.socks) {
@@ -142,7 +145,7 @@ function ProxyServer(options) {
 
   this.addListener(
     'request',
-    requestListener.bind(null, () => randomElement(this.proxyList))
+    requestListener.bind(null, this.hostnamesToSkip, () => randomElement(this.proxyList))
   );
   this.addListener(
     'connect',

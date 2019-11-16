@@ -10,6 +10,7 @@ const optionNames = [
   'level',
   'config',
   'host',
+  'skip',
 ];
 
 function getFileConfig(filePath) {
@@ -51,6 +52,7 @@ function main() {
     .option('-p, --port [port]', 'specify the listening port of http proxy server, default: 8080')
     .option('-l, --host [host]', 'specify the listening host of http proxy server, default: 127.0.0.1')
     .option('-c, --config [config]', 'read configs from file in json format')
+    .option('--skip [hostname1|hostname2]', 'skip proxy for hostname1 and hostname2 and so on')
     .option('--level [level]', 'log level, vals: info, error')
     .parse(process.argv);
 
