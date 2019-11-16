@@ -148,7 +148,7 @@ describe('proxy_server', () => {
 
   describe('requestListener', () => {
     it('should create an socks agent and take it as request agent', () => {
-      requestListener(getProxyInfo, request, response);
+      requestListener([], getProxyInfo, request, response);
 
       const lastCall = last(Socks.Agent.mock.calls);
       const httpLastCall = last(http.request.mock.calls);
@@ -158,7 +158,7 @@ describe('proxy_server', () => {
     });
 
     it('should return 500 when error thrown', () => {
-      requestListener(getProxyInfo, request, response);
+      requestListener([], getProxyInfo, request, response);
 
       const onErrorArgs = getLastMockOn('error');
 
@@ -179,7 +179,7 @@ describe('proxy_server', () => {
         pipe: jest.fn(),
       };
 
-      requestListener(getProxyInfo, request, response);
+      requestListener([], getProxyInfo, request, response);
 
       const onResponseArgs = getLastMockOn('response');
 
