@@ -46,7 +46,7 @@ You can specify a `json` config file with `-c`:
 }
 ```
 
-### QUICK START WITH DOCKER
+### Quick start with Docker
 ```bash
 docker run -itd --name http-proxy-to-socks \
     -e SOCKS_HOST=socks.proxy.host \
