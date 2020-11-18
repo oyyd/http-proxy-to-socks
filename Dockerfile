@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:15
 RUN npm install -g http-proxy-to-socks
 ENV SOCKS_HOST=localhost
 ENV SOCKS_PORT=1080
