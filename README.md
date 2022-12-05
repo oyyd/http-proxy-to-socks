@@ -46,6 +46,15 @@ You can specify a `json` config file with `-c`:
 }
 ```
 
+### Quick start with Docker
+```bash
+docker run -itd --name http-proxy-to-socks \
+    -e SOCKS_HOST=socks.proxy.host \
+    -e SOCKS_PORT=1080 \
+    -e HTTP_PROXY_PORT=8080 \
+    -p 8080:8080 \
+    peez/http-proxy-to-socks
+```
 ## CONTRIBUTE
 
 Please add more tests for corresponding features when you send a PR:
