@@ -6,6 +6,7 @@ const DEFAULT_OPTIONS = {
   socks: '127.0.0.1:1080',
   proxyListReloadTimeout: 60,
   port: 8080,
+  skip: 'localhost|127.0.0.1'
 };
 
 function createServer(opts) {
@@ -15,10 +16,10 @@ function createServer(opts) {
     changeLevel(logger, options.level);
   }
 
-  const { port, socks, host } = options;
+  const { port, socks, host, skip } = options;
 
   // eslint-disable-next-line
-  console.log(`SOCKS: ${socks}\nhttp-proxy listening: ${host}:${port}`);
+  console.log(`SOCKS: ${socks}\nhttp-proxy listening: ${host}:${port}, skiplist: ${skip}`);
 
   return createProxyServer(options).listen(port, host);
 }
