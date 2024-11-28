@@ -29,6 +29,24 @@ function parseProxyLine(line) {
   return getProxyObject.apply(this, proxyInfo);
 }
 
+function getFromRawHeaders(rawHeaders) {
+  const headers = {};
+
+  if (!Array.isArray(rawHeaders)) {
+    return headers;
+  }
+
+  for (let i = 0; i < rawHeaders.length; i += 2) {
+    const key = rawHeaders[i];
+    const value = rawHeaders[i + 1] || '';
+
+    headers[key] = headers[key] || [];
+    headers[key].push(value);
+  }
+
+  return headers;
+}
+
 function requestListener(getProxyInfo, request, response) {
   logger.info(`request: ${request.url}`);
 
@@ -45,7 +63,7 @@ function requestListener(getProxyInfo, request, response) {
     hostname: ph.hostname,
     method: request.method,
     path: ph.path,
-    headers: request.headers,
+    headers: getFromRawHeaders(request.rawHeaders),
     agent: socksAgent,
   };
 
@@ -120,7 +138,7 @@ function connectListener(getProxyInfo, request, socketRequest, head) {
 
 function ProxyServer(options) {
   // TODO: start point
-  http.Server.call(this, () => {});
+  http.Server.call(this, () => { });
 
   this.proxyList = [];
 
@@ -194,4 +212,5 @@ module.exports = {
   connectListener,
   getProxyObject,
   parseProxyLine,
+  getFromRawHeaders,
 };

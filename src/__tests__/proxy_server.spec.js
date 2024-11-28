@@ -32,6 +32,7 @@ const {
   parseProxyLine,
   requestListener,
   connectListener,
+  getFromRawHeaders,
 } = require('../proxy_server');
 
 describe('proxy_server', () => {
@@ -259,6 +260,26 @@ describe('proxy_server', () => {
 
       expect(onRequestArgs.length > 0).toBeTruthy();
       expect(onConnectArgs.length > 0).toBeTruthy();
+    });
+  });
+
+  describe('getFromRawHeaders', () => {
+    it('should work', () => {
+      const rawHeaders = [
+        'UPPER-CASE',
+        'abc',
+        'Host',
+        '127.0.0.1:12345',
+        'Connection',
+        'keep-alive'
+      ];
+
+      const result = getFromRawHeaders(rawHeaders);
+      expect(result).toEqual({
+        'UPPER-CASE': ['abc'],
+        Host: ['127.0.0.1:12345'],
+        Connection: ['keep-alive']
+      });
     });
   });
 });
