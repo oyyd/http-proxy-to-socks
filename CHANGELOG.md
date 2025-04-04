@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.1.5
+- deps: upgrade socks and other deps
+
 ## 1.1.3, 1.1.4
 - chore: keep header cases
 

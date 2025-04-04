@@ -12,8 +12,13 @@ jest.mock('http', () => ({
 }));
 
 jest.mock('socks', () => ({
-  createConnection: jest.fn(),
-  Agent: jest.fn(() => mockAgent),
+  SocksClient: {
+    createConnection: jest.fn(),
+  },
+}));
+
+jest.mock('socks-proxy-agent', () => ({
+  SocksProxyAgent: jest.fn(() => mockAgent),
 }));
 
 function last(array) {
@@ -34,6 +39,7 @@ const {
   connectListener,
   getFromRawHeaders,
 } = require('../proxy_server');
+const spaMod = require('socks-proxy-agent');
 
 describe('proxy_server', () => {
   const requestURL = 'https://google.com';
@@ -151,10 +157,10 @@ describe('proxy_server', () => {
     it('should create an socks agent and take it as request agent', () => {
       requestListener(getProxyInfo, request, response);
 
-      const lastCall = last(Socks.Agent.mock.calls);
+      const lastCall = last(spaMod.SocksProxyAgent.mock.calls);
       const httpLastCall = last(http.request.mock.calls);
 
-      expect(requestURL.indexOf(lastCall[0].target.host) > -1).toBeTruthy();
+      expect(requestURL.indexOf(lastCall[0].host) > -1).toBeTruthy();
       expect(httpLastCall[0].agent === mockAgent).toBeTruthy();
     });
 
@@ -197,16 +203,16 @@ describe('proxy_server', () => {
       const head = '';
       connectListener(getProxyInfo, socksRequest, socketRequest, head);
 
-      const lastCreateConnectionCall = last(Socks.createConnection.mock.calls);
+      const lastCreateConnectionCall = last(Socks.SocksClient.createConnection.mock.calls);
 
-      expect(lastCreateConnectionCall[0].target.host).toBe('google.com');
+      expect(lastCreateConnectionCall[0].destination.host).toBe('google.com');
     });
 
     it('should write 500 when error thrown', () => {
       const head = '';
       connectListener(getProxyInfo, socksRequest, socketRequest, head);
 
-      const lastCreateConnectionCall = last(Socks.createConnection.mock.calls);
+      const lastCreateConnectionCall = last(Socks.SocksClient.createConnection.mock.calls);
 
       const error = new Error('500');
 
@@ -221,9 +227,11 @@ describe('proxy_server', () => {
 
       connectListener(getProxyInfo, socksRequest, socketRequest, head);
 
-      const lastCreateConnectionCall = last(Socks.createConnection.mock.calls);
+      const lastCreateConnectionCall = last(Socks.SocksClient.createConnection.mock.calls);
 
-      lastCreateConnectionCall[1](null, socket);
+      lastCreateConnectionCall[1](null, {
+        socket,
+      });
 
       expect(socketRequest.pipe.mock.calls[0][0]).toBe(socket);
       expect(socket.pipe.mock.calls[0][0]).toBe(socketRequest);

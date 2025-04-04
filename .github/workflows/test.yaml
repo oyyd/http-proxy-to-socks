@@ -14,7 +14,7 @@ jobs:
       fail-fast: true
       matrix:
         platform: [ubuntu-20.04]
-        node-version: [10.x, 12.x, 14.x, 16.x, 18.x]
+        node-version: [16.x, 18.x, 20.x, 22.x]
 
     steps:
       - uses: actions/checkout@v3
